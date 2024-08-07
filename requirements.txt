@@ -1,0 +1,6 @@
+# requirements.txt for trading bot
+
+telethon
+selenium
+undetected-chromedriver
+nest-asyncio

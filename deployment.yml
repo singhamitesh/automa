@@ -1,0 +1,36 @@
+
+# Kubernetes deployment for trading bot
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trading-bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: trading-bot
+  template:
+    metadata:
+      labels:
+        app: trading-bot
+    spec:
+      containers:
+      - name: trading-bot
+        image: your-docker-registry-url/trading-bot:${BUILD_ID}
+        env:
+        - name: API_ID
+          valueFrom:
+            secretKeyRef:
+              name: telegram-secrets
+              key: api-id
+        - name: API_HASH
+          valueFrom:
+            secretKeyRef:
+              name: telegram-secrets
+              key: api-hash
+        - name: PHONE_NUMBER
+          valueFrom:
+            secretKeyRef:
+              name: telegram-secrets
+              key: phone-number
